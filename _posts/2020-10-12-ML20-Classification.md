@@ -3,11 +3,10 @@
 layout:     post
 title:      "ML20笔记之Classification"
 subtitle:   " \"Hello World, Hello Blog\""
-date:       2020-10-12
+date:       2020-10-13
 author:     "Chaufang"
 header-img: "img/post-bg-2015.jpg"
 tags:
-
 ​    - ML20
 
 ---
