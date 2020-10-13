@@ -1,5 +1,4 @@
 ---
-
 layout:     post
 title:      "ML20笔记之Classification"
 subtitle:   " \"Hello World, Hello Blog\""
@@ -8,7 +7,6 @@ author:     "Chaufang"
 header-img: "img/post-bg-2015.jpg"
 tags:
 ​    - ML20
-
 ---
 
 # Classification: Probabilistic Generative Model
