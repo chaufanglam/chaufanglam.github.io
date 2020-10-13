@@ -46,10 +46,10 @@ $P(x\vert C_1)$和$P(x\vert C_2)$这两个概率，被称为Prior，可以直接
 
 #### Probability from Class
 
-我们通过假设这些Training data是从一个**Gaussian Distribution**中sample出来的，而Gaussian Distribution的概率密度函数是
-$$
-f_{\mu,\Sigma}(x)=\frac{1}{(2\pi)^{D/2}} \frac{1}{\lvert\Sigma\rvert^{1/2}}exp(-\frac{1}{2}(x-\mu)^T\Sigma^{-1}(x-\mu))
-$$
+我们通过假设这些Training data是从一个**Gaussian Distribution**中sample出来的，而Gaussian Distribution的概率密度函数=
+
+$f_{\mu,\Sigma}(x)=\frac{1}{(2\pi)^{D/2}} \frac{1}{\lvert\Sigma\rvert^{1/2}}exp(-\frac{1}{2}(x-\mu)^T\Sigma^{-1}(x-\mu))$
+
 其中，$\mu$ 表示均值，$\Sigma$表示方差，两者都是矩阵。
 
 这个方法之所以称为**Generative Model**，是因为他预先假设这些Training data都是来自Gaussian Distribution的。
@@ -59,9 +59,9 @@ $$
 估计这两个参数的方法是**极大似然估计法(Maximum Likelihood)**，极大似然估计的思想是，找出最特殊的那对均值$\mu$ 和方差$\Sigma$，从它们共同决定的高斯函数中再次采样出79个点，使”得到的分布情况与当前已知点的分布情况相同“这件事情发生的可能性最大
 
 经过推导得，最合适的均值$\mu$ 和方差$\Sigma$分别是
-$$
-\mu=E(X), \Sigma=cov(X,X)
-$$
+
+$\mu=E(X), \Sigma=cov(X,X)$
+
 通过上式我们计算出class 1和class 2的均值$\mu$ 和方差$\Sigma$，得到了class 1和class 2估计Gaussian Distribution的概率密度函数。
 
 #### Do Classification！
@@ -101,9 +101,9 @@ $$
 - Find the best function
 
   找到的那个最好的function，就是使$L(\mu,\Sigma)$值最大的那组参数，实际上就是所有样本点的均值和协方差
-  $$
-  \mu^*=\frac{1}{n}\sum_{i=0}^n x^i\quad  \Sigma^*=\frac{1}{n}\sum_{i=0}^n(x^i-\mu^*)(x^i-\mu^*)^T
-  $$
+  
+  $\mu^*=\frac{1}{n}\sum_{i=0}^n x^i\quad  \Sigma^*=\frac{1}{n}\sum_{i=0}^n(x^i-\mu^*)(x^i-\mu^*)^T$
+  
   这里上标i表示第i个点，这里x是一个features的vector，用下标来表示这个vector中的某个feature
 
   ![alt 图片](https://raw.githubusercontent.com/chaufanglam/MarkdownPhotos/master/three-steps.png)
