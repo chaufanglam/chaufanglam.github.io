@@ -46,15 +46,15 @@ tags:
 
 #### Solution: Generative Model
 
-由全概率公式，可以得到下图中的概率$P(x|C_1)$以及$P(x|C_2)$，分别表示拿到一个input x属于class 1和class 2的概率。为了计算出概率，需要知道以下四个值：$P(C_1),P(C_2),P(x|C_1),P(x|C_2)$，我们希望从Training data中估测这四个值。
+由全概率公式，可以得到下图中的概率$P(x \vert C_1)$以及$P(x\vert C_2)$，分别表示拿到一个input x属于class 1和class 2的概率。为了计算出概率，需要知道以下四个值：$P(C_1),P(C_2),P(x\vert C_1),P(x\vert C_2)$，我们希望从Training data中估测这四个值。
 
 ![alt 图片](https://raw.githubusercontent.com/chaufanglam/MarkdownPhotos/master/two-class.png)
 
 #### Prior
 
-$P(x|C_1)$和$P(x|C_2)$这两个概率，被称为Prior，可以直接从Training data中的概率得到。
+$P(x\vert C_1)$和$P(x\vert C_2)$这两个概率，被称为Prior，可以直接从Training data中的概率得到。
 
-问题是怎么得到$P(x|C_1),P(x|C_2)$的值。
+问题是怎么得到$P(x\vert C_1),P(x\vert C_2)$的值。
 
 #### Probability from Class
 
@@ -102,9 +102,9 @@ $$
 
 - Find a function set (Model)
 
-  这些required probability $P(C)$和probability distribution $P(x|C)$就是model的参数，选择不同的Probability distribution(比如不同的分布函数，或者是不同参数的Gaussian distribution)，就会得到不同的function，把这些不同参数的Gaussian distribution集合起来，就是一个model，如果不适用高斯函数而选择其他分布函数，就是一个新的model了
+  这些required probability $P(C)$和probability distribution $P(x\vert C)$就是model的参数，选择不同的Probability distribution(比如不同的分布函数，或者是不同参数的Gaussian distribution)，就会得到不同的function，把这些不同参数的Gaussian distribution集合起来，就是一个model，如果不适用高斯函数而选择其他分布函数，就是一个新的model了
 
-  当这个posterior Probability $P(C_1|x)>0.5$的话，就output class 1，反之就output class 2，因为$P(C_1|x)+P(C_2|x)=1$，所以没必要对class 2再去计算一遍
+  当这个posterior Probability $P(C_1\vert x)>0.5$的话，就output class 1，反之就output class 2，因为$P(C_1\vert x)+P(C_2\vert x)=1$，所以没必要对class 2再去计算一遍
 
 - Goodness of function
 
