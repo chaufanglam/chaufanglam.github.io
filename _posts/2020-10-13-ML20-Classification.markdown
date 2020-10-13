@@ -6,7 +6,7 @@ date:       2020-10-13
 author:     "Chaufang"
 header-img: "img/post-bg-2015.jpg"
 tags:
-​    - ML20
+​    - 生活
 ---
 
 # Classification: Probabilistic Generative Model
