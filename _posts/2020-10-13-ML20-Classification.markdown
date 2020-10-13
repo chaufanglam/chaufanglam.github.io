@@ -100,7 +100,7 @@ $\mu=E(X), \Sigma=cov(X,X)$
 
 - Find the best function
 
-  找到的那个最好的function，就是使$L(\mu,\Sigma)$值最大的那组参数，实际上就是所有样本点的均值$\mu^*=\frac{1}{n}\sum_{i=0}^n x^i$和协方差  $\Sigma^*=\frac{1}{n}\sum_{i=0}^n(x^i-\mu^*)(x^i-\mu^*)^T$
+  找到的那个最好的function，就是使$L(\mu,\Sigma)$值最大的那组参数，实际上就是所有样本点的均值$\mu^*=\frac{1}{n}\sum_{i=0}^nx^i$和协方差$\Sigma^*=\frac{1}{n}\sum_{i=0}^n(x^i-\mu^*)(x^i-\mu^*)^T$
   
   这里上标i表示第i个点，这里x是一个features的vector，用下标来表示这个vector中的某个feature
   
