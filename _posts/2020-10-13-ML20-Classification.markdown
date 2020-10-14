@@ -10,7 +10,37 @@ tags:
     - ML20
 ---
 
-<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+<script>
+MathJax = {
+tex: {
+inlineMath: [['$', '$']],
+displayMath: [['\\[', '\\]']],
+processEnvironments: true,
+processRefs: true
+},
+options: {
+skipHtmlTags: ['noscript', 'style', 'textarea', 'pre', 'code'],
+ignoreHtmlClass: 'tex2jax_ignore',
+renderActions: {
+find_script_mathtex: [10, function (doc) {
+for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+const display = !!node.type.match(/; *mode=display/);
+const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+const text = document.createTextNode('');
+node.parentNode.replaceChild(text, node);
+math.start = { node: text, delim: '', n: 0 };
+math.end = { node: text, delim: '', n: 0 };
+doc.math.push(math);
+}
+}, '']
+}
+},
+svg: {
+fontCache: 'global'
+}
+};
+</script>
+<script id="MathJax-script" async src="https://cdn.staticfile.org/mathjax/3.0.1/es5/tex-svg.js"></script>
 
 # Classification: Probabilistic Generative Model
 
@@ -51,9 +81,7 @@ $$P(x\vert C_1)$$和$$P(x\vert C_2)$$这两个概率，被称为Prior，可以�
 我们通过假设这些Training data是从一个**Gaussian Distribution**中sample出来的，而Gaussian Distribution的概率密度函数=
 
 $$
-
 f_{\mu,\Sigma}(x)=\frac{1}{(2\pi)^{D/2}} \frac{1}{\vert\Sigma\vert^{1/2}}exp(-\frac{1}{2}(x-\mu)^T\Sigma^{-1}(x-\mu))
-
 $$
 
 其中，$$\mu$$ 表示均值，$$\Sigma$$表示方差，两者都是矩阵。
@@ -67,9 +95,7 @@ $$
 经过推导得，最合适的均值$$\mu$$ 和方差$$\Sigma$$分别是
 
 $$
-
 \mu=E(X), \Sigma=cov(X,X)
-
 $$
 
 通过上式我们计算出class 1和class 2的均值$$\mu$$ 和方差$$\Sigma$$，得到了class 1和class 2估计Gaussian Distribution的概率密度函数。
