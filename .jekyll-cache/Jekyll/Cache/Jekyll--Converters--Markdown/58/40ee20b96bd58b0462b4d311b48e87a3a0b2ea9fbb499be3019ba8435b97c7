@@ -1,4 +1,35 @@
-I"j<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+I";<script>
+MathJax = {
+tex: {
+inlineMath: [['$', '$']],
+displayMath: [['\\[', '\\]']],
+processEnvironments: true,
+processRefs: true
+},
+options: {
+skipHtmlTags: ['noscript', 'style', 'textarea', 'pre', 'code'],
+ignoreHtmlClass: 'tex2jax_ignore',
+renderActions: {
+find_script_mathtex: [10, function (doc) {
+for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+const display = !!node.type.match(/; *mode=display/);
+const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+const text = document.createTextNode('');
+node.parentNode.replaceChild(text, node);
+math.start = { node: text, delim: '', n: 0 };
+math.end = { node: text, delim: '', n: 0 };
+doc.math.push(math);
+}
+}, '']
+}
+},
+svg: {
+fontCache: 'global'
+}
+};
+</script>
+
+<script id="MathJax-script" async="" src="https://cdn.staticfile.org/mathjax/3.0.1/es5/tex-svg.js"></script>
 
 <h1 id="classification-probabilistic-generative-model">Classification: Probabilistic Generative Model</h1>
 
@@ -16,7 +47,7 @@
 
 <h4 id="loss-function">Loss Function</h4>
 
-<p>我们可以把loss function定义成\(L(f) = \sum_{n}\delta(f(x^n)\neq \hat{y}^n)\)，即这个model在所有的training data上predict预测错误的次数，也就是说分类错误的次数越少，这个function表现得就越好</p>
+<p>我们可以把loss function定义成$L(f) = \sum_{n}\delta(f(x^n)\neq \hat{y}^n)$，即这个model在所有的training data上predict预测错误的次数，也就是说分类错误的次数越少，这个function表现得就越好</p>
 
 <p>但是这个loss function没有办法微分，是无法用gradient descent的方法去解的，当然有Perceptron、SVM这些方法可以用，但这里先用另外一个solution来解决这个问题</p>
 
@@ -24,21 +55,23 @@
 
 <h4 id="solution-generative-model">Solution: Generative Model</h4>
 
-<p>由全概率公式，可以得到下图中的概率\(P(x \vert C_1)\)以及\(P(x\vert C_2)\)，分别表示拿到一个input x属于class 1和class 2的概率。为了计算出概率，需要知道以下四个值：\(P(C_1),P(C_2),P(x\vert C_1),P(x\vert C_2)\)，我们希望从Training data中估测这四个值。</p>
+<p>由全概率公式，可以得到下图中的概率$P(x \vert C_1)$以及$P(x\vert C_2)$，分别表示拿到一个input x属于class 1和class 2的概率。为了计算出概率，需要知道以下四个值：$P(C_1),P(C_2),P(x\vert C_1),P(x\vert C_2)$，我们希望从Training data中估测这四个值。</p>
 
 <p><img src="https://raw.githubusercontent.com/chaufanglam/MarkdownPhotos/master/two-class.png" alt="alt 图片" /></p>
 
 <h4 id="prior">Prior</h4>
 
-<p>\(P(x\vert C_1)\)$和\(P(x\vert C_2)\)这两个概率，被称为Prior，可以直接从Training data中的概率得到。</p>
+<p>$P(x\vert C_1)$和$P(x\vert C_2)$这两个概率，被称为Prior，可以直接从Training data中的概率得到。</p>
 
-<p>问题是怎么得到\(P(x\vert C_1),P(x\vert C_2)\)的值。</p>
+<p>问题是怎么得到$P(x\vert C_1),P(x\vert C_2)$的值。</p>
 
 <h4 id="probability-from-class">Probability from Class</h4>
 
 <p>我们通过假设这些Training data是从一个<strong>Gaussian Distribution</strong>中sample出来的，而Gaussian Distribution的概率密度函数=</p>
 
-<p>$f_{\mu,\Sigma}(x)=\frac{1}{(2\pi)^{D/2}} \frac{1}{\lvert\Sigma\rvert^{1/2}}exp(-\frac{1}{2}(x-\mu)^T\Sigma^{-1}(x-\mu))$</p>
+<p>$
+f_{\mu,\Sigma}(x)=\frac{1}{(2\pi)^{D/2}} \frac{1}{\vert\Sigma\vert^{1/2}}exp(-\frac{1}{2}(x-\mu)^T\Sigma^{-1}(x-\mu))
+$</p>
 
 <p>其中，$\mu$ 表示均值，$\Sigma$表示方差，两者都是矩阵。</p>
 
@@ -50,7 +83,9 @@
 
 <p>经过推导得，最合适的均值$\mu$ 和方差$\Sigma$分别是</p>
 
-<p>$\mu=E(X), \Sigma=cov(X,X)$</p>
+<p>$
+\mu=E(X), \Sigma=cov(X,X)
+$</p>
 
 <p>通过上式我们计算出class 1和class 2的均值$\mu$ 和方差$\Sigma$，得到了class 1和class 2估计Gaussian Distribution的概率密度函数。</p>
 
@@ -94,13 +129,7 @@
   <li>
     <p>Find the best function</p>
 
-    <p>找到的那个最好的function，就是使$L(\mu,\Sigma)$值最大的那组参数，实际上就是所有样本点的均值</p>
-
-    <p>$\mu^*=\frac{1}{n}\sum_{i=0}^nx^i$</p>
-
-    <p>和协方差</p>
-
-    <p>$\Sigma^<em>=\frac{1}{n}\sum_{i=0}^n(x^i-\mu^</em>)(x^i-\mu^*)^T$</p>
+    <p>找到的那个最好的function，就是使$L(\mu,\Sigma)$值最大的那组参数，实际上就是所有样本点的均值$\mu^<em>=\frac{1}{n}\sum_{i=0}^nx^i$和协方差$\Sigma^</em>=\frac{1}{n}\sum_{i=0}^n(x^i-\mu^<em>)(x^i-\mu^</em>)^T$</p>
 
     <p>这里上标i表示第i个点，这里x是一个features的vector，用下标来表示这个vector中的某个feature</p>
 
